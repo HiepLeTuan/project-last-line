@@ -1,0 +1,888 @@
+{
+  "schema_version": 1,
+  "language": "vi",
+  "source": {
+    "file": "docs/Bao_cao_Duong_day_cuoi_2317.docx",
+    "design_version": "2.1",
+    "note": "Luật theo báo cáo; văn bản hồ sơ và lời thoại được biên soạn theo canon."
+  },
+  "speakers": [
+    {
+      "id": "minh",
+      "name": "Minh",
+      "role": "Người chơi tại hiện tại"
+    },
+    {
+      "id": "hai",
+      "name": "Ông Hải",
+      "role": "Tài xế xe 17 trong quá khứ",
+      "availability": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          }
+        ]
+      },
+      "address_before_private_ack": "tôi — anh bên bến",
+      "address_after_private_ack": "bố — Minh/con"
+    },
+    {
+      "id": "guard",
+      "name": "Người gác cầu",
+      "role": "Đầu mối mở khi tìm thấy",
+      "availability": {
+        "all": [
+          {
+            "flag": "guard_found"
+          }
+        ]
+      }
+    },
+    {
+      "id": "narrator",
+      "name": "Dẫn truyện"
+    },
+    {
+      "id": "system",
+      "name": "Hệ thống"
+    }
+  ],
+  "selection_policy": {
+    "scripted_opening": [
+      "opening",
+      "radio_call"
+    ],
+    "address_variants": [
+      "hail_before",
+      "hail_after"
+    ],
+    "ending_success": [
+      "win"
+    ],
+    "ending_success_optional": [
+      "win_warned"
+    ],
+    "ending_failure": [
+      "loop_timeout"
+    ],
+    "rules": "Chọn câu đúng requirements và ngữ cảnh; opening/radio_call/verify_channel là ngoại lệ mở kênh trước channel_verified. Không cho AI tự viết thêm manh mối. Lan/Hậu không có kênh chat riêng."
+  },
+  "lines": [
+    {
+      "id": "A_analyze_d01",
+      "speaker": "narrator",
+      "text": "Đã phân tích Lịch xe số 17. Đọc lại không tốn phút.",
+      "requirements": {
+        "all": [
+          {
+            "not": {
+              "document": "D01"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_analyze_d02",
+      "speaker": "narrator",
+      "text": "Đã phân tích Phiếu sửa đèn công trình. Đọc lại không tốn phút.",
+      "requirements": {
+        "all": [
+          {
+            "not": {
+              "document": "D02"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_analyze_d03",
+      "speaker": "narrator",
+      "text": "Đã phân tích Thông báo đóng điểm đón trạm 4. Đọc lại không tốn phút.",
+      "requirements": {
+        "all": [
+          {
+            "not": {
+              "document": "D03"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_analyze_d04",
+      "speaker": "narrator",
+      "text": "Đã phân tích Lời khai hành khách. Đọc lại không tốn phút.",
+      "requirements": {
+        "all": [
+          {
+            "not": {
+              "document": "D04"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_analyze_d05",
+      "speaker": "narrator",
+      "text": "Đã phân tích Sơ đồ đường lên chòi. Đọc lại không tốn phút.",
+      "requirements": {
+        "all": [
+          {
+            "not": {
+              "document": "D05"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_analyze_d06",
+      "speaker": "narrator",
+      "text": "Đã phân tích Mặt sau chiếc vé cũ. Đọc lại không tốn phút.",
+      "requirements": {
+        "all": [
+          {
+            "not": {
+              "document": "D06"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_verify_channel",
+      "speaker": "hai",
+      "text": "Xe 17, Hải cầm lái. Tôi vừa qua trạm 4 khoảng 300 m, đang đi chậm chờ xe ngược chiều. Anh bên bến nghe rõ chứ?",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "A_inspect_light",
+      "speaker": "hai",
+      "text": "Tôi nhìn thấy dấu ĐÈN CÔNG TRÌNH trên vỏ đèn. Anh đối chiếu giúp với hồ sơ.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_resolve_h1",
+      "speaker": "minh",
+      "text": "Đèn công trình không bảo đảm cầu an toàn.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "fact": "F_WORK_LIGHT"
+          },
+          {
+            "flag": "light_checked"
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_present_h1",
+      "speaker": "hai",
+      "text": "Phiếu sửa khớp dấu trên đèn. Tôi sẽ không coi đèn sáng là lệnh qua cầu.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "hypothesis": "H1"
+          },
+          {
+            "fact": "F_WORK_LIGHT"
+          },
+          {
+            "flag": "light_checked"
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_ask_stop",
+      "speaker": "hai",
+      "text": "Tôi có dừng lúc 22:42, giúp một người vào mái trạm và để nước lại. Đến 22:46 mới đi; ông ấy chưa nói rõ chuyện cầu.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "fact": "F_STOP_CLOSED"
+          },
+          {
+            "any": [
+              {
+                "fact": "F_SCHEDULE"
+              },
+              {
+                "fact": "F_WITNESS_STOP"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_resolve_h2",
+      "speaker": "minh",
+      "text": "Điểm đón đã đóng; cha dừng ngoài lịch để giúp người.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "fact": "F_STOP_CLOSED"
+          },
+          {
+            "any": [
+              {
+                "fact": "F_SCHEDULE"
+              },
+              {
+                "fact": "F_WITNESS_STOP"
+              }
+            ]
+          },
+          {
+            "flag": "stop_confirmed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_present_h2",
+      "speaker": "hai",
+      "text": "Đúng, tôi dừng để giúp người. Anh đã xem kỹ hồ sơ; tôi nghe đề nghị của anh.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "hypothesis": "H2"
+          },
+          {
+            "fact": "F_STOP_CLOSED"
+          },
+          {
+            "any": [
+              {
+                "fact": "F_SCHEDULE"
+              },
+              {
+                "fact": "F_WITNESS_STOP"
+              }
+            ]
+          },
+          {
+            "flag": "stop_confirmed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_stop_bus",
+      "speaker": "hai",
+      "text": "Tôi đã lùi chậm về trạm và dừng xe. Mọi người vẫn đủ, tôi sẽ tìm người dưới mái trạm.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "trust_gte": 3
+          },
+          {
+            "flag": "h1_presented"
+          },
+          {
+            "flag": "h2_presented"
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_find_guard",
+      "speaker": "hai",
+      "text": "Tìm thấy rồi. Chính người tôi đã giúp, ông ấy là người gác cầu. Ông bị thương, bộ đàm đã hỏng.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "flag": "bus_stopped"
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_ask_guard",
+      "speaker": "guard",
+      "text": "Cầu hỏng rồi. Khoảng 22:40 tôi đem đèn ra cảnh báo thì ngã. Bộ đàm cũng hỏng; đừng đưa xe qua.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "guard_found"
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_treat_guard",
+      "speaker": "hai",
+      "text": "Lan đã hỗ trợ sơ cứu. Ông gác cầu tỉnh hơn, có thể chỉ đường; cả nhóm sẽ giúp ông di chuyển.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "flag": "bus_stopped"
+          },
+          {
+            "flag": "guard_found"
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_survey_route",
+      "speaker": "guard",
+      "text": "Đã kiểm tra lối men sườn từ trạm lên chòi. Đường còn đi được; mọi người có thể dìu tôi lên.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "bus_stopped"
+          },
+          {
+            "flag": "guard_found"
+          },
+          {
+            "flag": "guard_treated"
+          },
+          {
+            "not": {
+              "flag": "route_current"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_verify_route",
+      "speaker": "guard",
+      "text": "Sơ đồ đúng lối này. Tôi đã kiểm tra hiện trạng: đường lên chòi còn dùng được, tách khỏi đường xe về bến.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "bus_stopped"
+          },
+          {
+            "flag": "guard_found"
+          },
+          {
+            "flag": "guard_treated"
+          },
+          {
+            "not": {
+              "flag": "route_current"
+            }
+          },
+          {
+            "fact": "F_OLD_ROUTE"
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_resolve_h3",
+      "speaker": "minh",
+      "text": "Người gác cầu đã được sơ cứu và lối lên chòi đã được kiểm tra.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "guard_found"
+          },
+          {
+            "flag": "guard_treated"
+          },
+          {
+            "flag": "route_current"
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_private_promise",
+      "speaker": "hai",
+      "text": "Cái vé đó… tôi chỉ đưa cho thằng Minh. Được, tôi sẽ lên cùng mọi người.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "flag": "h2_presented"
+          },
+          {
+            "fact": "F_PRIVATE_STAR"
+          },
+          {
+            "fact": "F_PRIVATE_PROMISE"
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_claim_identity",
+      "speaker": "hai",
+      "text": "Tôi không hiểu anh đang nói gì. Xin quay lại chuyện trên xe; tôi cần thông tin kiểm chứng được.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "not": {
+              "flag": "private_ack"
+            }
+          },
+          {
+            "not": {
+              "all": [
+                {
+                  "fact": "F_PRIVATE_STAR"
+                },
+                {
+                  "fact": "F_PRIVATE_PROMISE"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_correct_identity",
+      "speaker": "hai",
+      "text": "Được, ta quay lại bằng chứng. Anh cứ nói điều đã kiểm tra được.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "flag": "identity_penalized"
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_warn_depot",
+      "speaker": "hai",
+      "text": "Bến đã nhận cảnh báo cầu nguy hiểm và sẽ chặn xe sau. Giờ chúng tôi đưa mọi người lên cao.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "flag": "h1_presented"
+          },
+          {
+            "flag": "bus_stopped"
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_evacuate",
+      "speaker": "hai",
+      "text": "Cả nhóm đã lên tới chòi, cả người gác cầu nữa. Bố cũng ở đây. Không ai còn dưới bãi trạm.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "hypothesis": "H1"
+          },
+          {
+            "hypothesis": "H2"
+          },
+          {
+            "hypothesis": "H3"
+          },
+          {
+            "flag": "h1_presented"
+          },
+          {
+            "flag": "h2_presented"
+          },
+          {
+            "flag": "bus_stopped"
+          },
+          {
+            "flag": "guard_found"
+          },
+          {
+            "flag": "guard_treated"
+          },
+          {
+            "flag": "route_current"
+          },
+          {
+            "trust_eq": 4
+          },
+          {
+            "flag": "private_ack"
+          }
+        ]
+      }
+    },
+    {
+      "id": "A_continue_to_bridge",
+      "speaker": "narrator",
+      "text": "Xe tiến về cầu. Đến 23:17, tiếng kim loại gãy lẫn vào tiếng nước. Đường dây vụt tắt.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "not": {
+              "flag": "bus_stopped"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "bridge_warning",
+      "speaker": "system",
+      "text": "Đi tiếp sẽ đưa vòng chơi tới 23:17 và thất bại. Xác nhận để tiếp tục; kiến thức đã biết vẫn được giữ.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "E2258",
+      "speaker": "narrator",
+      "text": "Xe ngược chiều đã qua đoạn hẹp. Không có thông tin từ xe đó xác nhận cầu an toàn.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "E2305",
+      "speaker": "narrator",
+      "text": "Đá nhỏ bắt đầu rơi. Đường xe quay về bến không còn an toàn; lối đi bộ lên sườn cao không bị mốc này chặn.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "E2312",
+      "speaker": "narrator",
+      "text": "Cầu rung mạnh hơn. Đèn công trình vẫn sáng nhưng không bảo đảm thông đường. Bãi trạm là vùng thấp; cần đưa mọi người lên cao.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "E2317",
+      "speaker": "narrator",
+      "text": "Cầu gãy, dòng lũ quét qua bãi trạm. Chòi trên sườn cao vẫn an toàn.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "opening",
+      "speaker": "narrator",
+      "text": "22:47. Minh ngồi giữa hồ sơ tai nạn của mười lăm năm trước. Cha vừa qua đời; giọng ông bỗng vang lên từ chiếc bộ đàm trên bàn.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "radio_call",
+      "speaker": "hai",
+      "text": "Bến nghe rõ không? Xe 17 vừa qua trạm số 4.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "read_again",
+      "speaker": "system",
+      "text": "Hồ sơ này đã phân tích. Đọc lại không tốn phút.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "insufficient_evidence",
+      "speaker": "system",
+      "text": "Chưa đủ bằng chứng cho kết luận này. Đối chiếu những chi tiết đã mở và kiểm tra hiện trường còn thiếu.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "already_applied",
+      "speaker": "system",
+      "text": "Việc này đã được ghi nhận trong vòng. Không cộng thêm lòng tin hoặc trừ thêm phút.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "insufficient_time",
+      "speaker": "system",
+      "text": "Không đủ thời gian hoàn thành tác vụ trước 23:17. Bạn có thể chọn việc khác hoặc bắt đầu vòng mới, giữ kiến thức đã biết.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "deadline_confirmation",
+      "speaker": "system",
+      "text": "Tác vụ này hoàn tất đúng 23:17. Hiệu ứng sẽ được áp dụng và xét thoát nạn trước khi xét hết giờ.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "missing_channel",
+      "speaker": "system",
+      "text": "Cần xác minh kênh liên lạc trước khi gửi yêu cầu cho xe 17.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "missing_trust",
+      "speaker": "hai",
+      "text": "Tôi cần bằng chứng về đèn và lần dừng trạm trước khi thay đổi lộ trình.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          }
+        ]
+      }
+    },
+    {
+      "id": "missing_private",
+      "speaker": "hai",
+      "text": "Tôi còn muốn quay xuống cầu tìm chiếc đèn báo rơi. Anh đưa mọi người lên trước đi.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "flag": "guard_treated"
+          },
+          {
+            "not": {
+              "flag": "private_ack"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "missing_route",
+      "speaker": "guard",
+      "text": "Phải kiểm tra lối đi trong mưa trước khi đưa mọi người lên.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "guard_found"
+          }
+        ]
+      }
+    },
+    {
+      "id": "guard_unavailable",
+      "speaker": "system",
+      "text": "Chưa liên lạc được với người gác cầu. Cần tìm ông tại hiện trường.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "guard_needs_care",
+      "speaker": "guard",
+      "text": "Tôi đang đau quá. Nhờ mọi người giúp tôi trước, rồi tôi chỉ đường lên cao.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "guard_found"
+          },
+          {
+            "not": {
+              "flag": "guard_treated"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity_preview",
+      "speaker": "system",
+      "text": "Diễn giải này là tuyên bố bạn là con của ông Hải, chưa có đủ chi tiết riêng. Xác nhận sẽ giảm một điểm lòng tin nếu vòng này chưa bị trừ; bạn có thể sửa diễn giải.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "private_player",
+      "speaker": "minh",
+      "text": "Ngôi sao bố vẽ sau vé lệch một cánh. Bố còn nợ con một buổi ngắm sao.",
+      "requirements": {
+        "all": [
+          {
+            "fact": "F_PRIVATE_STAR"
+          },
+          {
+            "fact": "F_PRIVATE_PROMISE"
+          },
+          {
+            "flag": "h2_presented"
+          }
+        ]
+      }
+    },
+    {
+      "id": "correction_player",
+      "speaker": "minh",
+      "text": "Tôi vừa nói điều khó tin. Ta quay lại những bằng chứng có thể kiểm tra.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "identity_penalized"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ai_fallback",
+      "speaker": "system",
+      "text": "Chưa diễn giải được câu nhập. Hãy chọn ý định và thẻ bằng chứng; các lựa chọn viết sẵn vẫn thực hiện được cùng hành động.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "ai_exhausted",
+      "speaker": "system",
+      "text": "Đã hết bốn lượt nhập tự do của vòng này. Bạn có thể tiếp tục bằng lựa chọn viết sẵn.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "ai_preview",
+      "speaker": "system",
+      "text": "Hãy kiểm tra ý định, bằng chứng và chi phí trên thẻ trước khi xác nhận. Mỗi công việc có phí cần xác nhận riêng.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "reset",
+      "speaker": "system",
+      "text": "Trở lại 22:47. Giữ hồ sơ, facts, kết luận và nhật ký; đặt lại hiện trường, lòng tin về 1, bằng chứng đã trình, câu riêng và bốn lượt AI. Hạn mức toàn phiên không reset.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "loop_timeout",
+      "speaker": "narrator",
+      "text": "23:17. Toàn nhóm chưa tới chòi khi cầu gãy và lũ quét qua bãi trạm. Đường dây tắt rồi lại vang lên lúc 22:47.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "win",
+      "speaker": "narrator",
+      "text": "Cả nhóm ở trong chòi trên cao. Đến 23:17, tiếng cầu gãy vọng lên từ phía dưới. Minh vẫn nghe tiếng cha bên kia đường dây; anh chưa biết hiện tại rồi sẽ ra sao.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "win_warned",
+      "speaker": "narrator",
+      "text": "Bến đã nhận cảnh báo để chặn những xe sau.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "depot_warned"
+          }
+        ]
+      }
+    },
+    {
+      "id": "replay_evidence",
+      "speaker": "system",
+      "text": "Bạn giữ kết luận từ vòng trước, nhưng cần kiểm tra hiện trạng và trình lại bằng chứng để ông Hải tin trong vòng này.",
+      "requirements": {
+        "all": []
+      }
+    },
+    {
+      "id": "hail_before",
+      "speaker": "hai",
+      "text": "Anh bên bến còn nghe không? Tôi đang chờ thông tin của anh.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "not": {
+              "flag": "private_ack"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "hail_after",
+      "speaker": "hai",
+      "text": "Minh, bố vẫn nghe. Ta đưa mọi người lên cao nhé.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "flag": "private_ack"
+          }
+        ]
+      }
+    }
+  ]
+}

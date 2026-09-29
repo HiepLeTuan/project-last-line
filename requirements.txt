@@ -1,0 +1,9 @@
+# Giai đoạn 1: lõi game và bản chơi trên terminal dùng Python standard library.
+# Dùng Python 3.11 trở lên.
+# Cài đặt: python -m pip install -r requirements.txt
+
+# Chạy kiểm thử cho luật game và script cân bằng.
+pytest==9.1.1
+
+# Khi bắt đầu làm API web, bổ sung FastAPI và Uvicorn sau khi chốt phiên bản.
+# Khi chọn nhà cung cấp AI, bổ sung SDK tương ứng; không đặt API key ở đây.

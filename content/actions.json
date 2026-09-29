@@ -1,0 +1,981 @@
+{
+  "schema_version": 1,
+  "language": "vi",
+  "source": {
+    "file": "docs/Bao_cao_Duong_day_cuoi_2317.docx",
+    "design_version": "2.1",
+    "note": "Luật theo báo cáo; văn bản hồ sơ và lời thoại được biên soạn theo canon."
+  },
+  "contract": {
+    "requirements": "all/any/not đệ quy; document/fact/hypothesis thuộc kiến thức; flag thuộc vòng hiện tại; trust_gte/trust_eq so sánh trust; input_* là kết quả diễn giải đã được người chơi xác nhận. all rỗng là đúng.",
+    "effects": "Thêm ID vào tập, không nhân bản. trust_event_id chỉ áp dụng một lần mỗi vòng; trust giới hạn 0–4.",
+    "repeats": "once_per_loop chặn áp dụng và thu phí lại. Hồ sơ đã phân tích đọc lại miễn phí. Hành động miễn phí không tiến triển không tạo điểm thưởng.",
+    "cost": "Số nguyên phút; remaining_until_deadline nghĩa là 30 trừ elapsed_minutes.",
+    "evidence": "Thẻ và AI phải cung cấp cùng các facts trong evidence_requirements và mệnh đề đúng; tên hồ sơ đơn lẻ không đủ.",
+    "order": [
+      "validate_and_confirm",
+      "reject_insufficient_time",
+      "trigger_crossed_events_once",
+      "apply_effects",
+      "check_win",
+      "check_timeout",
+      "commit"
+    ],
+    "deadline": "Hoàn tất đúng phút 30 xét thắng trước hết giờ; không reset giữa lúc xử lý events và effects.",
+    "private_ack": "Cờ private_ack ánh xạ tới GameState.private_ack.",
+    "presented_evidence": "present_h1, present_h2, private_promise lần lượt thêm H1, H2, D06 vào presented_evidence.",
+    "guard_contact": "Chỉ mở sau guard_found; Lan và Hậu chỉ xuất hiện qua lời tường thuật của Hải."
+  },
+  "initial_state": {
+    "elapsed_minutes": 0,
+    "trust": 1,
+    "private_ack": false,
+    "current_flags": [],
+    "presented_evidence": [],
+    "triggered_events": [],
+    "trust_events": [],
+    "completed_actions": [],
+    "ai_calls_remaining": 4
+  },
+  "reset": {
+    "retain": [
+      "analyzed_docs",
+      "known_facts",
+      "verified_hypotheses",
+      "journal",
+      "ai_calls_used"
+    ],
+    "clear": [
+      "current_flags",
+      "presented_evidence",
+      "triggered_events",
+      "trust_events",
+      "completed_actions"
+    ],
+    "set": {
+      "elapsed_minutes": 0,
+      "trust": 1,
+      "private_ack": false,
+      "ai_calls_remaining": 4
+    },
+    "increment": [
+      "loop_id",
+      "revision"
+    ],
+    "dialogue_id": "reset"
+  },
+  "win_requirements": {
+    "all": [
+      {
+        "flag": "channel_verified"
+      },
+      {
+        "hypothesis": "H1"
+      },
+      {
+        "hypothesis": "H2"
+      },
+      {
+        "hypothesis": "H3"
+      },
+      {
+        "flag": "h1_presented"
+      },
+      {
+        "flag": "h2_presented"
+      },
+      {
+        "flag": "bus_stopped"
+      },
+      {
+        "flag": "guard_found"
+      },
+      {
+        "flag": "guard_treated"
+      },
+      {
+        "flag": "route_current"
+      },
+      {
+        "trust_eq": 4
+      },
+      {
+        "flag": "private_ack"
+      },
+      {
+        "flag": "group_at_shelter"
+      }
+    ]
+  },
+  "actions": [
+    {
+      "id": "analyze_d01",
+      "label": "Phân tích D01",
+      "kind": "analysis",
+      "cost_minutes": 2,
+      "requirements": {
+        "all": [
+          {
+            "not": {
+              "document": "D01"
+            }
+          }
+        ]
+      },
+      "effects": {
+        "analyze_documents": [
+          "D01"
+        ],
+        "learn_facts": [
+          "F_SCHEDULE"
+        ]
+      },
+      "once_per_loop": false,
+      "requires_confirmation": true,
+      "dialogue_id": "A_analyze_d01",
+      "once_per_knowledge": true
+    },
+    {
+      "id": "analyze_d02",
+      "label": "Phân tích D02",
+      "kind": "analysis",
+      "cost_minutes": 2,
+      "requirements": {
+        "all": [
+          {
+            "not": {
+              "document": "D02"
+            }
+          }
+        ]
+      },
+      "effects": {
+        "analyze_documents": [
+          "D02"
+        ],
+        "learn_facts": [
+          "F_WORK_LIGHT"
+        ]
+      },
+      "once_per_loop": false,
+      "requires_confirmation": true,
+      "dialogue_id": "A_analyze_d02",
+      "once_per_knowledge": true
+    },
+    {
+      "id": "analyze_d03",
+      "label": "Phân tích D03",
+      "kind": "analysis",
+      "cost_minutes": 2,
+      "requirements": {
+        "all": [
+          {
+            "not": {
+              "document": "D03"
+            }
+          }
+        ]
+      },
+      "effects": {
+        "analyze_documents": [
+          "D03"
+        ],
+        "learn_facts": [
+          "F_STOP_CLOSED"
+        ]
+      },
+      "once_per_loop": false,
+      "requires_confirmation": true,
+      "dialogue_id": "A_analyze_d03",
+      "once_per_knowledge": true
+    },
+    {
+      "id": "analyze_d04",
+      "label": "Phân tích D04",
+      "kind": "analysis",
+      "cost_minutes": 2,
+      "requirements": {
+        "all": [
+          {
+            "not": {
+              "document": "D04"
+            }
+          }
+        ]
+      },
+      "effects": {
+        "analyze_documents": [
+          "D04"
+        ],
+        "learn_facts": [
+          "F_WITNESS_STOP"
+        ]
+      },
+      "once_per_loop": false,
+      "requires_confirmation": true,
+      "dialogue_id": "A_analyze_d04",
+      "once_per_knowledge": true
+    },
+    {
+      "id": "analyze_d05",
+      "label": "Phân tích D05",
+      "kind": "analysis",
+      "cost_minutes": 2,
+      "requirements": {
+        "all": [
+          {
+            "not": {
+              "document": "D05"
+            }
+          }
+        ]
+      },
+      "effects": {
+        "analyze_documents": [
+          "D05"
+        ],
+        "learn_facts": [
+          "F_OLD_ROUTE"
+        ]
+      },
+      "once_per_loop": false,
+      "requires_confirmation": true,
+      "dialogue_id": "A_analyze_d05",
+      "once_per_knowledge": true
+    },
+    {
+      "id": "analyze_d06",
+      "label": "Phân tích D06",
+      "kind": "analysis",
+      "cost_minutes": 2,
+      "requirements": {
+        "all": [
+          {
+            "not": {
+              "document": "D06"
+            }
+          }
+        ]
+      },
+      "effects": {
+        "analyze_documents": [
+          "D06"
+        ],
+        "learn_facts": [
+          "F_PRIVATE_STAR",
+          "F_PRIVATE_PROMISE"
+        ]
+      },
+      "once_per_loop": false,
+      "requires_confirmation": true,
+      "dialogue_id": "A_analyze_d06",
+      "once_per_knowledge": true
+    },
+    {
+      "id": "verify_channel",
+      "label": "Xác minh mã xe",
+      "kind": "field",
+      "cost_minutes": 1,
+      "requirements": {
+        "all": []
+      },
+      "effects": {
+        "set_flags": [
+          "channel_verified"
+        ],
+        "learn_facts": [
+          "F_CHANNEL"
+        ],
+        "verify_hypotheses": []
+      },
+      "once_per_loop": true,
+      "requires_confirmation": true,
+      "dialogue_id": "A_verify_channel"
+    },
+    {
+      "id": "inspect_light",
+      "label": "Kiểm tra dấu hiệu đèn",
+      "kind": "field",
+      "cost_minutes": 2,
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          }
+        ]
+      },
+      "effects": {
+        "set_flags": [
+          "light_checked"
+        ],
+        "learn_facts": [
+          "F_LIGHT_CHECK"
+        ],
+        "verify_hypotheses": []
+      },
+      "once_per_loop": true,
+      "requires_confirmation": true,
+      "dialogue_id": "A_inspect_light"
+    },
+    {
+      "id": "resolve_h1",
+      "label": "Kiểm chứng H1",
+      "kind": "conversation",
+      "cost_minutes": 0,
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "fact": "F_WORK_LIGHT"
+          },
+          {
+            "flag": "light_checked"
+          }
+        ]
+      },
+      "effects": {
+        "set_flags": [],
+        "learn_facts": [],
+        "verify_hypotheses": [
+          "H1"
+        ]
+      },
+      "once_per_loop": false,
+      "requires_confirmation": true,
+      "dialogue_id": "A_resolve_h1"
+    },
+    {
+      "id": "present_h1",
+      "label": "Trình lập luận H1",
+      "kind": "conversation",
+      "cost_minutes": 0,
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "hypothesis": "H1"
+          },
+          {
+            "fact": "F_WORK_LIGHT"
+          },
+          {
+            "flag": "light_checked"
+          }
+        ]
+      },
+      "effects": {
+        "set_flags": [
+          "h1_presented"
+        ],
+        "learn_facts": [],
+        "verify_hypotheses": [],
+        "trust_delta": 1,
+        "trust_event_id": "T_H1"
+      },
+      "once_per_loop": true,
+      "requires_confirmation": true,
+      "dialogue_id": "A_present_h1",
+      "evidence_requirements": {
+        "all": [
+          {
+            "fact": "F_WORK_LIGHT"
+          },
+          {
+            "fact": "F_LIGHT_CHECK"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_stop",
+      "label": "Hỏi lần dừng lúc 22:42",
+      "kind": "conversation",
+      "cost_minutes": 0,
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "fact": "F_STOP_CLOSED"
+          },
+          {
+            "any": [
+              {
+                "fact": "F_SCHEDULE"
+              },
+              {
+                "fact": "F_WITNESS_STOP"
+              }
+            ]
+          }
+        ]
+      },
+      "effects": {
+        "set_flags": [
+          "stop_confirmed"
+        ],
+        "learn_facts": [
+          "F_HAI_STOP"
+        ],
+        "verify_hypotheses": []
+      },
+      "once_per_loop": true,
+      "requires_confirmation": true,
+      "dialogue_id": "A_ask_stop"
+    },
+    {
+      "id": "resolve_h2",
+      "label": "Kiểm chứng H2",
+      "kind": "conversation",
+      "cost_minutes": 0,
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "fact": "F_STOP_CLOSED"
+          },
+          {
+            "any": [
+              {
+                "fact": "F_SCHEDULE"
+              },
+              {
+                "fact": "F_WITNESS_STOP"
+              }
+            ]
+          },
+          {
+            "flag": "stop_confirmed"
+          }
+        ]
+      },
+      "effects": {
+        "set_flags": [],
+        "learn_facts": [],
+        "verify_hypotheses": [
+          "H2"
+        ]
+      },
+      "once_per_loop": false,
+      "requires_confirmation": true,
+      "dialogue_id": "A_resolve_h2"
+    },
+    {
+      "id": "present_h2",
+      "label": "Trình lập luận H2",
+      "kind": "conversation",
+      "cost_minutes": 0,
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "hypothesis": "H2"
+          },
+          {
+            "fact": "F_STOP_CLOSED"
+          },
+          {
+            "any": [
+              {
+                "fact": "F_SCHEDULE"
+              },
+              {
+                "fact": "F_WITNESS_STOP"
+              }
+            ]
+          },
+          {
+            "flag": "stop_confirmed"
+          }
+        ]
+      },
+      "effects": {
+        "set_flags": [
+          "h2_presented"
+        ],
+        "learn_facts": [],
+        "verify_hypotheses": [],
+        "trust_delta": 1,
+        "trust_event_id": "T_H2"
+      },
+      "once_per_loop": true,
+      "requires_confirmation": true,
+      "dialogue_id": "A_present_h2",
+      "evidence_requirements": {
+        "all": [
+          {
+            "fact": "F_STOP_CLOSED"
+          },
+          {
+            "any": [
+              {
+                "fact": "F_SCHEDULE"
+              },
+              {
+                "fact": "F_WITNESS_STOP"
+              }
+            ]
+          },
+          {
+            "fact": "F_HAI_STOP"
+          }
+        ]
+      }
+    },
+    {
+      "id": "stop_bus",
+      "label": "Quay lại và dừng trạm 4",
+      "kind": "field",
+      "cost_minutes": 2,
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "trust_gte": 3
+          },
+          {
+            "flag": "h1_presented"
+          },
+          {
+            "flag": "h2_presented"
+          }
+        ]
+      },
+      "effects": {
+        "set_flags": [
+          "bus_stopped"
+        ],
+        "learn_facts": [],
+        "verify_hypotheses": []
+      },
+      "once_per_loop": true,
+      "requires_confirmation": true,
+      "dialogue_id": "A_stop_bus"
+    },
+    {
+      "id": "find_guard",
+      "label": "Tìm người gác cầu",
+      "kind": "field",
+      "cost_minutes": 3,
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "flag": "bus_stopped"
+          }
+        ]
+      },
+      "effects": {
+        "set_flags": [
+          "guard_found"
+        ],
+        "learn_facts": [
+          "F_GUARD_FOUND"
+        ],
+        "verify_hypotheses": []
+      },
+      "once_per_loop": true,
+      "requires_confirmation": true,
+      "dialogue_id": "A_find_guard"
+    },
+    {
+      "id": "ask_guard",
+      "label": "Hỏi người gác cầu về cầu",
+      "kind": "conversation",
+      "cost_minutes": 0,
+      "requirements": {
+        "all": [
+          {
+            "flag": "guard_found"
+          }
+        ]
+      },
+      "effects": {
+        "set_flags": [
+          "guard_account_heard"
+        ],
+        "learn_facts": [
+          "F_BRIDGE_DAMAGE"
+        ],
+        "verify_hypotheses": []
+      },
+      "once_per_loop": true,
+      "requires_confirmation": true,
+      "dialogue_id": "A_ask_guard"
+    },
+    {
+      "id": "treat_guard",
+      "label": "Nhờ Lan hỗ trợ sơ cứu",
+      "kind": "field",
+      "cost_minutes": 3,
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "flag": "bus_stopped"
+          },
+          {
+            "flag": "guard_found"
+          }
+        ]
+      },
+      "effects": {
+        "set_flags": [
+          "guard_treated"
+        ],
+        "learn_facts": [
+          "F_GUARD_TREATED"
+        ],
+        "verify_hypotheses": []
+      },
+      "once_per_loop": true,
+      "requires_confirmation": true,
+      "dialogue_id": "A_treat_guard"
+    },
+    {
+      "id": "survey_route",
+      "label": "Khảo sát lối lên chòi",
+      "kind": "field",
+      "cost_minutes": 3,
+      "requirements": {
+        "all": [
+          {
+            "flag": "bus_stopped"
+          },
+          {
+            "flag": "guard_found"
+          },
+          {
+            "flag": "guard_treated"
+          },
+          {
+            "not": {
+              "flag": "route_current"
+            }
+          }
+        ]
+      },
+      "effects": {
+        "set_flags": [
+          "route_current"
+        ],
+        "learn_facts": [
+          "F_ROUTE_CURRENT"
+        ],
+        "verify_hypotheses": []
+      },
+      "once_per_loop": true,
+      "requires_confirmation": true,
+      "dialogue_id": "A_survey_route"
+    },
+    {
+      "id": "verify_route",
+      "label": "Xác minh lối trên D05",
+      "kind": "field",
+      "cost_minutes": 1,
+      "requirements": {
+        "all": [
+          {
+            "flag": "bus_stopped"
+          },
+          {
+            "flag": "guard_found"
+          },
+          {
+            "flag": "guard_treated"
+          },
+          {
+            "not": {
+              "flag": "route_current"
+            }
+          },
+          {
+            "fact": "F_OLD_ROUTE"
+          }
+        ]
+      },
+      "effects": {
+        "set_flags": [
+          "route_current"
+        ],
+        "learn_facts": [
+          "F_ROUTE_CURRENT"
+        ],
+        "verify_hypotheses": []
+      },
+      "once_per_loop": true,
+      "requires_confirmation": true,
+      "dialogue_id": "A_verify_route"
+    },
+    {
+      "id": "resolve_h3",
+      "label": "Kiểm chứng H3",
+      "kind": "conversation",
+      "cost_minutes": 0,
+      "requirements": {
+        "all": [
+          {
+            "flag": "guard_found"
+          },
+          {
+            "flag": "guard_treated"
+          },
+          {
+            "flag": "route_current"
+          }
+        ]
+      },
+      "effects": {
+        "set_flags": [],
+        "learn_facts": [],
+        "verify_hypotheses": [
+          "H3"
+        ]
+      },
+      "once_per_loop": false,
+      "requires_confirmation": true,
+      "dialogue_id": "A_resolve_h3"
+    },
+    {
+      "id": "private_promise",
+      "label": "Nhắc ngôi sao lệch và lời hứa",
+      "kind": "conversation",
+      "cost_minutes": 0,
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "flag": "h2_presented"
+          },
+          {
+            "fact": "F_PRIVATE_STAR"
+          },
+          {
+            "fact": "F_PRIVATE_PROMISE"
+          }
+        ]
+      },
+      "effects": {
+        "set_flags": [
+          "private_ack"
+        ],
+        "learn_facts": [],
+        "verify_hypotheses": [],
+        "trust_delta": 1,
+        "trust_event_id": "T_PRIVATE"
+      },
+      "once_per_loop": true,
+      "requires_confirmation": true,
+      "dialogue_id": "A_private_promise",
+      "evidence_requirements": {
+        "all": [
+          {
+            "fact": "F_PRIVATE_STAR"
+          },
+          {
+            "fact": "F_PRIVATE_PROMISE"
+          }
+        ]
+      }
+    },
+    {
+      "id": "claim_identity",
+      "label": "Tuyên bố là con khi chưa có chứng cứ riêng",
+      "kind": "conversation",
+      "cost_minutes": 0,
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "not": {
+              "flag": "private_ack"
+            }
+          },
+          {
+            "input_identity_claim": true
+          },
+          {
+            "input_missing_private_details": true
+          }
+        ]
+      },
+      "effects": {
+        "set_flags": [
+          "identity_penalized"
+        ],
+        "learn_facts": [],
+        "verify_hypotheses": [],
+        "trust_delta": -1,
+        "trust_event_id": "T_IDENTITY"
+      },
+      "once_per_loop": true,
+      "requires_confirmation": true,
+      "dialogue_id": "A_claim_identity",
+      "input_rule": "Chỉ phạt tuyên bố danh tính rõ ràng đã xác nhận nhưng không viện dẫn đủ ngôi sao lệch và lời hứa. Từ bố đơn lẻ không kích hoạt."
+    },
+    {
+      "id": "correct_identity",
+      "label": "Đính chính lời tuyên bố danh tính",
+      "kind": "conversation",
+      "cost_minutes": 0,
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "flag": "identity_penalized"
+          }
+        ]
+      },
+      "effects": {
+        "set_flags": [
+          "identity_corrected"
+        ],
+        "learn_facts": [],
+        "verify_hypotheses": [],
+        "trust_delta": 1,
+        "trust_event_id": "T_CORRECTION"
+      },
+      "once_per_loop": true,
+      "requires_confirmation": true,
+      "dialogue_id": "A_correct_identity"
+    },
+    {
+      "id": "warn_depot",
+      "label": "Cảnh báo bến chặn xe sau",
+      "kind": "field",
+      "cost_minutes": 2,
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "flag": "h1_presented"
+          },
+          {
+            "flag": "bus_stopped"
+          }
+        ]
+      },
+      "effects": {
+        "set_flags": [
+          "depot_warned"
+        ],
+        "learn_facts": [
+          "F_DEPOT_WARNED"
+        ],
+        "verify_hypotheses": []
+      },
+      "once_per_loop": true,
+      "requires_confirmation": true,
+      "dialogue_id": "A_warn_depot"
+    },
+    {
+      "id": "evacuate",
+      "label": "Đưa toàn nhóm lên chòi",
+      "kind": "field",
+      "cost_minutes": 5,
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "hypothesis": "H1"
+          },
+          {
+            "hypothesis": "H2"
+          },
+          {
+            "hypothesis": "H3"
+          },
+          {
+            "flag": "h1_presented"
+          },
+          {
+            "flag": "h2_presented"
+          },
+          {
+            "flag": "bus_stopped"
+          },
+          {
+            "flag": "guard_found"
+          },
+          {
+            "flag": "guard_treated"
+          },
+          {
+            "flag": "route_current"
+          },
+          {
+            "trust_eq": 4
+          },
+          {
+            "flag": "private_ack"
+          }
+        ]
+      },
+      "effects": {
+        "set_flags": [
+          "group_at_shelter"
+        ],
+        "learn_facts": [],
+        "verify_hypotheses": []
+      },
+      "once_per_loop": true,
+      "requires_confirmation": true,
+      "dialogue_id": "A_evacuate"
+    },
+    {
+      "id": "continue_to_bridge",
+      "label": "Tiếp tục đi qua cầu",
+      "kind": "field",
+      "cost_minutes": {
+        "remaining_until_deadline": true
+      },
+      "requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          },
+          {
+            "not": {
+              "flag": "bus_stopped"
+            }
+          }
+        ]
+      },
+      "effects": {
+        "set_flags": [
+          "bridge_attempted"
+        ],
+        "force_outcome": "loop"
+      },
+      "once_per_loop": true,
+      "requires_confirmation": true,
+      "dialogue_id": "A_continue_to_bridge",
+      "warning_dialogue_id": "bridge_warning"
+    }
+  ]
+}

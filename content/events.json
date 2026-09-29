@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "language": "vi",
+  "source": {
+    "file": "docs/Bao_cao_Duong_day_cuoi_2317.docx",
+    "design_version": "2.1",
+    "note": "Luật theo báo cáo; văn bản hồ sơ và lời thoại được biên soạn theo canon."
+  },
+  "clock": {
+    "start": "22:47",
+    "deadline": "23:17",
+    "duration_minutes": 30,
+    "advance_only": [
+      "analysis",
+      "field"
+    ],
+    "crossing_rule": "old_time < event_time <= new_time",
+    "event_order": "elapsed_minutes tăng dần",
+    "terminal_rule": "Xử lý sự kiện, áp dụng hiệu ứng hành động, xét thắng rồi mới xét hết giờ. Nếu đã thắng trước hạn, kết thúc vòng; đoạn kết có thể kể lại lũ lúc 23:17."
+  },
+  "events": [
+    {
+      "id": "E2258",
+      "time": "22:58",
+      "elapsed_minutes": 11,
+      "once_per_loop": true,
+      "effects": {
+        "set_flags": [
+          "opposing_vehicle_passed"
+        ]
+      },
+      "dialogue_id": "E2258",
+      "resolve_outcome_immediately": false
+    },
+    {
+      "id": "E2305",
+      "time": "23:05",
+      "elapsed_minutes": 18,
+      "once_per_loop": true,
+      "effects": {
+        "set_flags": [
+          "rear_road_unsafe"
+        ]
+      },
+      "dialogue_id": "E2305",
+      "resolve_outcome_immediately": false
+    },
+    {
+      "id": "E2312",
+      "time": "23:12",
+      "elapsed_minutes": 25,
+      "once_per_loop": true,
+      "effects": {
+        "set_flags": [
+          "bridge_shaking"
+        ]
+      },
+      "dialogue_id": "E2312",
+      "resolve_outcome_immediately": false
+    },
+    {
+      "id": "E2317",
+      "time": "23:17",
+      "elapsed_minutes": 30,
+      "once_per_loop": true,
+      "effects": {
+        "set_flags": [
+          "flood_arrived"
+        ]
+      },
+      "dialogue_id": "E2317",
+      "resolve_outcome_immediately": false
+    }
+  ],
+  "author_only_timeline": [
+    {
+      "time": "22:30",
+      "text": "Bến đóng điểm đón trạm 4, không cấm dừng cứu người."
+    },
+    {
+      "time": "22:40",
+      "text": "Người gác cầu ngã khi đem đèn cảnh báo ra đường, bộ đàm hỏng."
+    },
+    {
+      "time": "22:42–22:46",
+      "text": "Hải giúp người lạ vào mái trạm, để nước rồi tiếp tục; chưa biết rõ cầu hỏng."
+    },
+    {
+      "time": "22:47",
+      "text": "Xe cách trạm 300 m, đi chậm chờ xe ngược chiều; kênh của Minh mở."
+    },
+    {
+      "time": "23:17",
+      "text": "Dòng gốc: xe lên cầu, bốn hành khách tử nạn, Hải sống sót. Dòng can thiệp: cả nhóm tới chòi thì thoát. Không kết luận lịch sử hiện tại đổi."
+    }
+  ]
+}

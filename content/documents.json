@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "language": "vi",
+  "source": {
+    "file": "docs/Bao_cao_Duong_day_cuoi_2317.docx",
+    "design_version": "2.1",
+    "note": "Luật theo báo cáo; văn bản hồ sơ và lời thoại được biên soạn theo canon."
+  },
+  "documents": [
+    {
+      "id": "D01",
+      "title": "Lịch xe số 17",
+      "source": "Lịch điều độ bến, lập trước chuyến xe",
+      "timeline": "before_accident",
+      "text": "Xe 17: bến — trạm 4 — cầu Đá Trắng. Ghi chú: không đón trạm 4. Đây là ghi chú điểm đón theo lịch; cần đối chiếu thông báo điều độ.",
+      "fact_ids": [
+        "F_SCHEDULE"
+      ],
+      "analysis_action_id": "analyze_d01",
+      "visibility": "title_and_source_visible_body_after_analysis",
+      "immutable_across_loops": true
+    },
+    {
+      "id": "D02",
+      "title": "Phiếu sửa đèn công trình",
+      "source": "Hồ sơ bảo trì, lập trước đêm tai nạn",
+      "timeline": "before_accident",
+      "text": "Đèn tại đầu cầu Đá Trắng phục vụ công trình. Vỏ đèn có dấu ĐÈN CÔNG TRÌNH. Đèn này không phải tín hiệu cho phép xe qua cầu; đèn sáng không chứng minh cầu an toàn.",
+      "fact_ids": [
+        "F_WORK_LIGHT"
+      ],
+      "analysis_action_id": "analyze_d02",
+      "visibility": "title_and_source_visible_body_after_analysis",
+      "immutable_across_loops": true
+    },
+    {
+      "id": "D03",
+      "title": "Thông báo đóng điểm đón trạm 4",
+      "source": "Thông báo bến, hiệu lực 22:30 đêm tai nạn",
+      "timeline": "before_accident",
+      "text": "Từ 22:30, đóng điểm đón trạm 4 vì không còn khách đón. Xe bỏ điểm đón theo lịch. Thông báo không cấm dừng khẩn cấp hoặc dừng cứu người.",
+      "fact_ids": [
+        "F_STOP_CLOSED"
+      ],
+      "analysis_action_id": "analyze_d03",
+      "visibility": "title_and_source_visible_body_after_analysis",
+      "immutable_across_loops": true
+    },
+    {
+      "id": "D04",
+      "title": "Lời khai hành khách",
+      "source": "Hồ sơ sau tai nạn, kể lại lần dừng lúc 22:42",
+      "timeline": "after_accident",
+      "text": "Khoảng 22:42, tôi thấy ông Hải dừng xe, giúp một người lạ vào mái trạm rồi để nước lại. Tôi không nghe rõ họ nói gì. Sau đó ông Hải trở lên xe và tiếp tục đi.",
+      "fact_ids": [
+        "F_WITNESS_STOP"
+      ],
+      "analysis_action_id": "analyze_d04",
+      "visibility": "title_and_source_visible_body_after_analysis",
+      "immutable_across_loops": true
+    },
+    {
+      "id": "D05",
+      "title": "Sơ đồ đường lên chòi",
+      "source": "Sơ đồ đường trú, lập trước đêm tai nạn",
+      "timeline": "before_accident",
+      "text": "Từ mái trạm 4, theo lối đi bộ men sườn dốc lên chòi trên cao. Lối này tách khỏi đường xe về bến. Sơ đồ không xác nhận hiện trạng trong mưa; cần người gác cầu kiểm tra lại trước khi đưa cả nhóm lên.",
+      "fact_ids": [
+        "F_OLD_ROUTE"
+      ],
+      "analysis_action_id": "analyze_d05",
+      "visibility": "title_and_source_visible_body_after_analysis",
+      "immutable_across_loops": true
+    },
+    {
+      "id": "D06",
+      "title": "Mặt sau chiếc vé cũ",
+      "source": "Kỷ vật cha trao cho Minh từ nhỏ, trước đêm tai nạn",
+      "timeline": "personal_before_accident",
+      "text": "Cha vẽ một ngôi sao lệch một cánh sau vé xe. Bên cạnh là dòng chữ: “Bố còn nợ con một buổi ngắm sao”.",
+      "fact_ids": [
+        "F_PRIVATE_STAR",
+        "F_PRIVATE_PROMISE"
+      ],
+      "analysis_action_id": "analyze_d06",
+      "visibility": "title_and_source_visible_body_after_analysis",
+      "immutable_across_loops": true
+    }
+  ]
+}

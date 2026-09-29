@@ -1,0 +1,386 @@
+{
+  "schema_version": 1,
+  "language": "vi",
+  "source": {
+    "file": "docs/Bao_cao_Duong_day_cuoi_2317.docx",
+    "design_version": "2.1",
+    "note": "Luật theo báo cáo; văn bản hồ sơ và lời thoại được biên soạn theo canon."
+  },
+  "disclosure_policy": {
+    "default": "deny",
+    "player_and_ai": "Chỉ tiết lộ facts đã biết; không gửi toàn bộ file cho client hoặc AI.",
+    "npc": "Hải chỉ biết quá khứ tới giờ hiện tại; người gác cầu chỉ liên lạc sau guard_found. Hồ sơ sau tai nạn là nguồn của Minh, không phải ký ức tương lai của NPC.",
+    "loop": "Kiến thức lưu không thay thế kiểm tra hiện trường ở vòng mới."
+  },
+  "source_groups": {
+    "route_checks": [
+      "survey_route",
+      "verify_route"
+    ]
+  },
+  "facts": [
+    {
+      "id": "F_SCHEDULE",
+      "text": "Xe 17: bến — trạm 4 — cầu Đá Trắng. Ghi chú: không đón trạm 4. Đây là ghi chú điểm đón theo lịch; cần đối chiếu thông báo điều độ.",
+      "source_id": "D01",
+      "unlock_requirements": {
+        "all": [
+          {
+            "document": "D01"
+          }
+        ]
+      },
+      "disclosure_requirements": {
+        "all": [
+          {
+            "fact": "F_SCHEDULE"
+          }
+        ]
+      },
+      "persist_across_loops": true
+    },
+    {
+      "id": "F_WORK_LIGHT",
+      "text": "Đèn tại đầu cầu Đá Trắng phục vụ công trình. Vỏ đèn có dấu ĐÈN CÔNG TRÌNH. Đèn này không phải tín hiệu cho phép xe qua cầu; đèn sáng không chứng minh cầu an toàn.",
+      "source_id": "D02",
+      "unlock_requirements": {
+        "all": [
+          {
+            "document": "D02"
+          }
+        ]
+      },
+      "disclosure_requirements": {
+        "all": [
+          {
+            "fact": "F_WORK_LIGHT"
+          }
+        ]
+      },
+      "persist_across_loops": true
+    },
+    {
+      "id": "F_STOP_CLOSED",
+      "text": "Từ 22:30, đóng điểm đón trạm 4 vì không còn khách đón. Xe bỏ điểm đón theo lịch. Thông báo không cấm dừng khẩn cấp hoặc dừng cứu người.",
+      "source_id": "D03",
+      "unlock_requirements": {
+        "all": [
+          {
+            "document": "D03"
+          }
+        ]
+      },
+      "disclosure_requirements": {
+        "all": [
+          {
+            "fact": "F_STOP_CLOSED"
+          }
+        ]
+      },
+      "persist_across_loops": true
+    },
+    {
+      "id": "F_WITNESS_STOP",
+      "text": "Khoảng 22:42, tôi thấy ông Hải dừng xe, giúp một người lạ vào mái trạm rồi để nước lại. Tôi không nghe rõ họ nói gì. Sau đó ông Hải trở lên xe và tiếp tục đi.",
+      "source_id": "D04",
+      "unlock_requirements": {
+        "all": [
+          {
+            "document": "D04"
+          }
+        ]
+      },
+      "disclosure_requirements": {
+        "all": [
+          {
+            "fact": "F_WITNESS_STOP"
+          }
+        ]
+      },
+      "persist_across_loops": true
+    },
+    {
+      "id": "F_OLD_ROUTE",
+      "text": "Từ mái trạm 4, theo lối đi bộ men sườn dốc lên chòi trên cao. Lối này tách khỏi đường xe về bến. Sơ đồ không xác nhận hiện trạng trong mưa; cần người gác cầu kiểm tra lại trước khi đưa cả nhóm lên.",
+      "source_id": "D05",
+      "unlock_requirements": {
+        "all": [
+          {
+            "document": "D05"
+          }
+        ]
+      },
+      "disclosure_requirements": {
+        "all": [
+          {
+            "fact": "F_OLD_ROUTE"
+          }
+        ]
+      },
+      "persist_across_loops": true
+    },
+    {
+      "id": "F_PRIVATE_STAR",
+      "text": "Cha vẽ ngôi sao lệch một cánh sau vé xe cho Minh.",
+      "source_id": "D06",
+      "unlock_requirements": {
+        "all": [
+          {
+            "document": "D06"
+          }
+        ]
+      },
+      "disclosure_requirements": {
+        "all": [
+          {
+            "fact": "F_PRIVATE_STAR"
+          }
+        ]
+      },
+      "persist_across_loops": true
+    },
+    {
+      "id": "F_PRIVATE_PROMISE",
+      "text": "Bố còn nợ con một buổi ngắm sao.",
+      "source_id": "D06",
+      "unlock_requirements": {
+        "all": [
+          {
+            "document": "D06"
+          }
+        ]
+      },
+      "disclosure_requirements": {
+        "all": [
+          {
+            "fact": "F_PRIVATE_PROMISE"
+          }
+        ]
+      },
+      "persist_across_loops": true
+    },
+    {
+      "id": "F_CHANNEL",
+      "text": "Đầu dây là Hải, lái xe 17 trong đêm tai nạn.",
+      "source_id": "verify_channel",
+      "unlock_requirements": {
+        "all": [
+          {
+            "flag": "channel_verified"
+          }
+        ]
+      },
+      "disclosure_requirements": {
+        "all": [
+          {
+            "fact": "F_CHANNEL"
+          }
+        ]
+      },
+      "persist_across_loops": true
+    },
+    {
+      "id": "F_LIGHT_CHECK",
+      "text": "Hải thấy dấu ĐÈN CÔNG TRÌNH trên vỏ đèn.",
+      "source_id": "inspect_light",
+      "unlock_requirements": {
+        "all": [
+          {
+            "flag": "light_checked"
+          }
+        ]
+      },
+      "disclosure_requirements": {
+        "all": [
+          {
+            "fact": "F_LIGHT_CHECK"
+          }
+        ]
+      },
+      "persist_across_loops": true
+    },
+    {
+      "id": "F_HAI_STOP",
+      "text": "Hải đã dừng 22:42–22:46 để giúp người lạ; chưa được báo rõ cầu hỏng.",
+      "source_id": "ask_stop",
+      "unlock_requirements": {
+        "all": [
+          {
+            "flag": "stop_confirmed"
+          }
+        ]
+      },
+      "disclosure_requirements": {
+        "all": [
+          {
+            "fact": "F_HAI_STOP"
+          }
+        ]
+      },
+      "persist_across_loops": true
+    },
+    {
+      "id": "F_GUARD_FOUND",
+      "text": "Người dưới mái trạm là người gác cầu bị thương, bộ đàm hỏng.",
+      "source_id": "find_guard",
+      "unlock_requirements": {
+        "all": [
+          {
+            "flag": "guard_found"
+          }
+        ]
+      },
+      "disclosure_requirements": {
+        "all": [
+          {
+            "fact": "F_GUARD_FOUND"
+          }
+        ]
+      },
+      "persist_across_loops": true
+    },
+    {
+      "id": "F_BRIDGE_DAMAGE",
+      "text": "Cầu đã hỏng; người gác cầu ngã lúc 22:40 khi đem đèn cảnh báo ra đường.",
+      "source_id": "ask_guard",
+      "unlock_requirements": {
+        "all": [
+          {
+            "flag": "guard_account_heard"
+          }
+        ]
+      },
+      "disclosure_requirements": {
+        "all": [
+          {
+            "fact": "F_BRIDGE_DAMAGE"
+          }
+        ]
+      },
+      "persist_across_loops": true
+    },
+    {
+      "id": "F_GUARD_TREATED",
+      "text": "Lan hỗ trợ sơ cứu, người gác cầu đã có thể hướng dẫn.",
+      "source_id": "treat_guard",
+      "unlock_requirements": {
+        "all": [
+          {
+            "flag": "guard_treated"
+          }
+        ]
+      },
+      "disclosure_requirements": {
+        "all": [
+          {
+            "fact": "F_GUARD_TREATED"
+          }
+        ]
+      },
+      "persist_across_loops": true
+    },
+    {
+      "id": "F_ROUTE_CURRENT",
+      "text": "Lối lên chòi đã được kiểm tra trong vòng hiện tại và còn đi được.",
+      "source_id": "route_checks",
+      "unlock_requirements": {
+        "all": [
+          {
+            "flag": "route_current"
+          }
+        ]
+      },
+      "disclosure_requirements": {
+        "all": [
+          {
+            "fact": "F_ROUTE_CURRENT"
+          }
+        ]
+      },
+      "persist_across_loops": true
+    },
+    {
+      "id": "F_DEPOT_WARNED",
+      "text": "Bến nhận cảnh báo và sẽ chặn xe sau.",
+      "source_id": "warn_depot",
+      "unlock_requirements": {
+        "all": [
+          {
+            "flag": "depot_warned"
+          }
+        ]
+      },
+      "disclosure_requirements": {
+        "all": [
+          {
+            "fact": "F_DEPOT_WARNED"
+          }
+        ]
+      },
+      "persist_across_loops": true
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "claim": "Đèn trước cầu là tín hiệu an toàn.",
+      "resolution": "refuted",
+      "conclusion": "Đèn công trình không bảo đảm cầu an toàn.",
+      "requirements": {
+        "all": [
+          {
+            "fact": "F_WORK_LIGHT"
+          },
+          {
+            "flag": "light_checked"
+          }
+        ]
+      }
+    },
+    {
+      "id": "H2",
+      "claim": "Cha tự ý bỏ trạm 4.",
+      "resolution": "refuted",
+      "conclusion": "Điểm đón đã đóng; cha dừng ngoài lịch để giúp người.",
+      "requirements": {
+        "all": [
+          {
+            "fact": "F_STOP_CLOSED"
+          },
+          {
+            "any": [
+              {
+                "fact": "F_SCHEDULE"
+              },
+              {
+                "fact": "F_WITNESS_STOP"
+              }
+            ]
+          },
+          {
+            "flag": "stop_confirmed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "H3",
+      "claim": "Người gác cầu có lối thoát.",
+      "resolution": "confirmed",
+      "conclusion": "Người gác cầu đã được sơ cứu và lối lên chòi đã được kiểm tra.",
+      "requirements": {
+        "all": [
+          {
+            "flag": "guard_found"
+          },
+          {
+            "flag": "guard_treated"
+          },
+          {
+            "flag": "route_current"
+          }
+        ]
+      }
+    }
+  ]
+}
